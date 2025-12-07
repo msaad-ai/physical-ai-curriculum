@@ -271,7 +271,7 @@ This mini-project integrates all concepts learned in the previous chapters to cr
 ### Next Steps
 After completing the mini-project, consider:
 - Reviewing the [Mini-Project Implementation Guide](./mini-project-implementation.md) for detailed implementation steps
-- Practicing with additional [exercises](./exercises/) to reinforce concepts
+- Practicing with additional [exercises](./exercises/basic-exercises.md) to reinforce concepts
 - Exploring advanced topics in Isaac Sim and Isaac ROS documentation
 
 ### Related Chapters

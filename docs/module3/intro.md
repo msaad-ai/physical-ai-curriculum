@@ -542,7 +542,7 @@ Once your environment is properly verified:
 - [Chapter 2: AI Perception Pipelines](./perception-pipelines.md) - Learn about VSLAM and object detection
 - [Chapter 3: Navigation & Path Planning](./navigation-planning.md) - Understand Nav2 for bipedal robots
 - [Chapter 4: Mini AI-Robot Brain Project](./mini-project.md) - Apply concepts in an integrated project
-- [Exercises Directory](./exercises/) - Practice problems and projects
+- [Basic Exercises](./exercises/basic-exercises.md) - Practice problems for beginners
 
 ## Troubleshooting Common Issues
 

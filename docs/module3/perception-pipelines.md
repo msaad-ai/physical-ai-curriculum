@@ -747,7 +747,7 @@ These perception capabilities are essential for humanoid robots to understand th
 After mastering perception pipelines, continue with:
 - [Chapter 3: Navigation & Path Planning](./navigation-planning.md) - Learn how to use Nav2 for bipedal robot navigation
 - [Chapter 4: Mini AI-Robot Brain Project](./mini-project.md) - Apply perception concepts in an integrated project
-- [Exercises](./exercises/) - Practice perception-focused exercises
+- [Basic Exercises](./exercises/basic-exercises.md) - Practice perception-focused exercises
 
 ### Related Chapters
 - [Chapter 1: NVIDIA Isaac Sim Introduction](./intro.md) - Foundation for setting up the environment

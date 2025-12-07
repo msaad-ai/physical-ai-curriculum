@@ -1134,4 +1134,4 @@ Remember to validate each component individually before integrating them, and us
 - [Chapter 2: AI Perception Pipelines](./perception-pipelines.md) - Perception concepts implemented here
 - [Chapter 3: Navigation & Path Planning](./navigation-planning.md) - Navigation concepts implemented here
 - [Chapter 4: Mini AI-Robot Brain Project](./mini-project.md) - Project requirements and evaluation
-- [Exercises](./exercises/) - Practice problems to reinforce implementation concepts
+- [Basic Exercises](./exercises/basic-exercises.md) - Practice problems to reinforce implementation concepts

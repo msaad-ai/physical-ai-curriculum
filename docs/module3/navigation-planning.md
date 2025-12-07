@@ -1155,7 +1155,7 @@ These navigation capabilities form a critical component of the AI-robot brain sy
 ### Next Steps
 After mastering navigation planning, continue with:
 - [Chapter 4: Mini AI-Robot Brain Project](./mini-project.md) - Apply navigation concepts in an integrated project
-- [Exercises](./exercises/) - Practice navigation-focused exercises
+- [Basic Exercises](./exercises/basic-exercises.md) - Practice navigation-focused exercises
 
 ### Related Chapters
 - [Chapter 1: NVIDIA Isaac Sim Introduction](./intro.md) - Foundation for setting up the environment
