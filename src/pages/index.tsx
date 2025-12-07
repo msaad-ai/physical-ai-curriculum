@@ -32,7 +32,7 @@ function HomepageHeader() {
           </div>
           <div className={styles.heroImage}>
             <img
-              src="/img/logo.svg"
+              src="img/physical-ai-book-cover.svg"
               alt="Humanoid Robot"
               className={styles.robotImage}
             />
