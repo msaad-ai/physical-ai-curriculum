@@ -1,23 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Robot body -->
-  <rect x="30" y="30" width="40" height="40" rx="5" fill="#445D48" stroke="#2C3E50" stroke-width="2"/>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="robotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4cc9f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4361ee;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f72585;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b5179e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
 
-  <!-- Robot head -->
-  <rect x="35" y="15" width="30" height="20" rx="10" fill="#445D48" stroke="#2C3E50" stroke-width="2"/>
+  <rect width="200" height="200" fill="url(#bgGradient)" rx="10" />
 
-  <!-- Eyes -->
-  <circle cx="42" cy="25" r="3" fill="#2ECC71"/>
-  <circle cx="58" cy="25" r="3" fill="#2ECC71"/>
+  <!-- Humanoid Robot -->
+  <g transform="translate(100, 100)">
+    <!-- Body -->
+    <rect x="-15" y="0" width="30" height="50" fill="url(#robotGradient)" rx="3" />
+    <!-- Head -->
+    <circle cx="0" cy="-25" r="15" fill="url(#robotGradient)" />
+    <!-- Eyes -->
+    <circle cx="-5" cy="-28" r="2" fill="white" />
+    <circle cx="5" cy="-28" r="2" fill="white" />
+    <circle cx="-5" cy="-28" r="1" fill="#f72585" />
+    <circle cx="5" cy="-28" r="1" fill="#f72585" />
+    <!-- Arms -->
+    <line x1="-18" y1="5" x2="-35" y2="20" stroke="url(#robotGradient)" stroke-width="4" stroke-linecap="round" />
+    <line x1="18" y1="5" x2="35" y2="20" stroke="url(#robotGradient)" stroke-width="4" stroke-linecap="round" />
+    <!-- Legs -->
+    <line x1="-8" y1="50" x2="-15" y2="85" stroke="url(#robotGradient)" stroke-width="4" stroke-linecap="round" />
+    <line x1="8" y1="50" x2="15" y2="85" stroke="url(#robotGradient)" stroke-width="4" stroke-linecap="round" />
 
-  <!-- Antenna -->
-  <line x1="50" y1="15" x2="50" y2="5" stroke="#2C3E50" stroke-width="2"/>
-  <circle cx="50" cy="3" r="2" fill="#E74C3C"/>
+    <!-- AI Brain Elements -->
+    <g transform="translate(40, -40)">
+      <!-- Neural network nodes -->
+      <circle cx="0" cy="0" r="3" fill="url(#brainGradient)" />
+      <circle cx="12" cy="-8" r="3" fill="url(#brainGradient)" />
+      <circle cx="12" cy="8" r="3" fill="url(#brainGradient)" />
+      <circle cx="24" cy="0" r="3" fill="url(#brainGradient)" />
 
-  <!-- Arms -->
-  <line x1="25" y1="40" x2="15" y2="40" stroke="#2C3E50" stroke-width="3"/>
-  <line x1="75" y1="40" x2="85" y2="40" stroke="#2C3E50" stroke-width="3"/>
+      <!-- Neural connections -->
+      <line x1="0" y1="0" x2="12" y2="-8" stroke="#f72585" stroke-width="1" opacity="0.7" />
+      <line x1="0" y1="0" x2="12" y2="8" stroke="#f72585" stroke-width="1" opacity="0.7" />
+      <line x1="12" y1="-8" x2="24" y2="0" stroke="#f72585" stroke-width="1" opacity="0.7" />
+      <line x1="12" y1="8" x2="24" y2="0" stroke="#f72585" stroke-width="1" opacity="0.7" />
+    </g>
+  </g>
 
-  <!-- Legs -->
-  <line x1="40" y1="70" x2="40" y2="80" stroke="#2C3E50" stroke-width="3"/>
-  <line x1="60" y1="70" x2="60" y2="80" stroke="#2C3E50" stroke-width="3"/>
+  <!-- Title text -->
+  <text x="100" y="185" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle">
+    Physical AI &amp; Robotics
+  </text>
 </svg>
