@@ -1,0 +1,8 @@
+# Python dependencies for VLA Module
+openai>=1.0.0
+python-dotenv>=1.0.0
+rclpy>=3.0.0  # ROS 2 Python client library
+numpy>=1.21.0
+pydub>=0.25.1
+sounddevice>=0.4.6
+requests>=2.28.0

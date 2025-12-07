@@ -1,0 +1,122 @@
+```mermaid
+graph TD
+    subgraph "Input Layer"
+        A[Sensor Data] --> A1[Camera]
+        A[Sensor Data] --> A2[LIDAR]
+        A[Sensor Data] --> A3[IMU]
+        A[Sensor Data] --> A4[Joint Encoders]
+    end
+
+    subgraph "Perception Layer"
+        B[VSLAM Processing] --> B1[Visual Feature Extraction]
+        B[VSLAM Processing] --> B2[IMU Integration]
+        B[VSLAM Processing] --> B3[Pose Estimation]
+        C[Object Detection] --> C1[Neural Network Inference]
+        C[Object Detection] --> C2[Bounding Box Generation]
+        C[Object Detection] --> C3[Classification]
+    end
+
+    subgraph "Planning Layer"
+        D[Global Planner] --> D1[Path Planning]
+        D[Global Planner] --> D2[Costmap Integration]
+        D[Global Planner] --> D3[Dynamic Obstacle Prediction]
+        E[Local Planner] --> E1[Trajectory Generation]
+        E[Local Planner] --> E2[Obstacle Avoidance]
+        E[Local Planner] --> E3[Stability Constraints]
+    end
+
+    subgraph "Control Layer"
+        F[Balance Controller] --> F1[ZMP Control]
+        F[Balance Controller] --> F2[COM Adjustment]
+        F[Balance Controller] --> F3[Posture Stabilization]
+        G[Navigation Controller] --> G1[Path Following]
+        G[Navigation Controller] --> G2[Velocity Control]
+        G[Navigation Controller] --> G3[Turning Control]
+    end
+
+    subgraph "Execution Layer"
+        H[Motor Commands] --> H1[Joint Control]
+        H[Motor Commands] --> H2[Step Timing]
+        H[Motor Commands] --> H3[Force Control]
+        I[Actuators] --> I1[Leg Joints]
+        I[Actuators] --> I2[Arm Joints]
+        I[Actuators] --> I3[Head/Neck]
+    end
+
+    subgraph "Feedback Loop"
+        J[State Estimation] --> K[Sensor Fusion]
+        K --> L[Belief State]
+        L --> B
+        L --> D
+        L --> E
+    end
+
+    %% Connections
+    A1 --> B
+    A2 --> B
+    A3 --> B
+    A1 --> C
+    A2 --> D2
+    B3 --> D
+    C3 --> D
+    D1 --> E
+    D2 --> E
+    E --> G
+    G --> F
+    F --> H
+    H --> I
+    I --> J
+    J --> K
+
+    %% Styling
+    classDef input fill:#fff3e0
+    classDef perception fill:#e8f5e8
+    classDef planning fill:#e3f2fd
+    classDef control fill:#f3e5f5
+    classDef execution fill:#ffebee
+    classDef feedback fill:#e0e0e0
+
+    class A,A1,A2,A3,A4 input
+    class B,B1,B2,B3,C,C1,C2,C3 perception
+    class D,D1,D2,D3,E,E1,E2,E3 planning
+    class F,F1,F2,F3,G,G1,G2,G3 control
+    class H,H1,H2,H3,I,I1,I2,I3 execution
+    class J,K,L feedback
+```
+
+# Robot Control Flow Architecture
+
+This diagram illustrates the complete control flow for a humanoid robot in the Isaac Sim environment, showing how sensor data flows through perception, planning, control, and execution layers.
+
+## Layer Descriptions
+
+### Input Layer
+- **Camera**: Provides visual information for perception
+- **LIDAR**: Supplies 3D spatial information for mapping and obstacle detection
+- **IMU**: Provides inertial measurements for motion estimation and balance
+- **Joint Encoders**: Supplies joint position information for kinematic control
+
+### Perception Layer
+- **VSLAM Processing**: Combines visual and inertial data for localization and mapping
+- **Object Detection**: Identifies and classifies objects in the environment
+- **Sensor Integration**: Fuses data from multiple sensors for coherent perception
+
+### Planning Layer
+- **Global Planner**: Creates long-term paths from start to goal
+- **Local Planner**: Generates short-term trajectories with obstacle avoidance
+- **Constraint Integration**: Incorporates stability and kinematic constraints
+
+### Control Layer
+- **Balance Controller**: Maintains robot stability during locomotion
+- **Navigation Controller**: Executes planned paths while maintaining balance
+- **Feedback Control**: Adjusts control parameters based on state estimation
+
+### Execution Layer
+- **Motor Commands**: Translates high-level commands to joint-level control
+- **Actuators**: Physical components that execute the movement commands
+- **Joint Control**: Low-level control of individual joints
+
+### Feedback Loop
+- **State Estimation**: Estimates robot state from sensor data
+- **Sensor Fusion**: Combines multiple sensor sources for accurate state
+- **Belief State**: Maintains the robot's understanding of its state and environment

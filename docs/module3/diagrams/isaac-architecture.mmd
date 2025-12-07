@@ -1,0 +1,101 @@
+```mermaid
+graph TB
+    subgraph "Humanoid Robot Model"
+        R[Robot Chassis]
+        J1[Joint 1 - Hip]
+        J2[Joint 2 - Knee]
+        J3[Joint 3 - Ankle]
+        S1[RGB Camera]
+        S2[Depth Sensor]
+        S3[IMU]
+        S4[LIDAR]
+        S5[Force/Torque Sensors]
+    end
+
+    subgraph "Isaac Sim Environment"
+        IS[Isaac Sim Core]
+        PS[Physics Simulation Engine]
+        RE[Rendering Engine]
+        SC[Scene Graph]
+    end
+
+    subgraph "Isaac ROS Interface"
+        ROS[ROS 2 Bridge]
+        SD[Synthetic Data Generation]
+        CN[Navigation Integration]
+    end
+
+    subgraph "External Systems"
+        VSLAM[VSLAM Pipeline]
+        OD[Object Detection]
+        NAV[Navigation System]
+        DT[Data Training Pipeline]
+    end
+
+    %% Robot to Isaac Sim connections
+    R --> SC
+    J1 --> PS
+    J2 --> PS
+    J3 --> PS
+    S1 --> IS
+    S2 --> IS
+    S3 --> IS
+    S4 --> IS
+    S5 --> IS
+
+    %% Isaac Sim internal connections
+    SC --> PS
+    SC --> RE
+    IS --> PS
+    IS --> RE
+
+    %% Isaac Sim to Isaac ROS
+    IS --> ROS
+    IS --> SD
+    PS --> CN
+
+    %% Isaac ROS to External Systems
+    ROS --> VSLAM
+    ROS --> OD
+    ROS --> NAV
+    SD --> DT
+
+    %% Styling
+    classDef robot fill:#e1f5fe
+    classDef isaacSim fill:#f3e5f5
+    classDef isaacROS fill:#e8f5e8
+    classDef external fill:#fff3e0
+
+    class R,J1,J2,J3,S1,S2,S3,S4,S5 robot
+    class IS,PS,RE,SC isaacSim
+    class ROS,SD,CN isaacROS
+    class VSLAM,OD,NAV,DT external
+```
+
+# Isaac Sim Architecture: Robot-Sensor Integration
+
+This diagram illustrates the architecture of NVIDIA Isaac Sim with a humanoid robot model, showing how sensors are integrated and how data flows through the system.
+
+## Components Description
+
+### Humanoid Robot Model
+- **Robot Chassis**: The main body of the humanoid robot
+- **Joints**: Hip, knee, and ankle joints for bipedal locomotion
+- **Sensors**: Multiple sensor types for environmental perception and self-awareness
+
+### Isaac Sim Environment
+- **Core Engine**: The main simulation engine
+- **Physics Engine**: Handles realistic physics simulation including bipedal dynamics
+- **Rendering Engine**: Provides high-quality visual rendering
+- **Scene Graph**: Manages the 3D scene structure
+
+### Isaac ROS Interface
+- **ROS 2 Bridge**: Connects Isaac Sim with ROS 2 ecosystem
+- **Synthetic Data**: Tools for generating labeled training data
+- **Navigation**: Integration with Navigation2 framework
+
+### External Systems
+- **VSLAM**: Visual-inertial SLAM for localization and mapping
+- **Object Detection**: AI perception for identifying objects
+- **Navigation**: Path planning and obstacle avoidance
+- **Data Training**: Pipeline for using synthetic data in AI model training

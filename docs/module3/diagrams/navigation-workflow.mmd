@@ -1,0 +1,97 @@
+```mermaid
+graph TD
+    subgraph "Navigation Input"
+        A[Goal Pose] --> C{Initialize Navigation}
+        B[Robot Pose] --> C
+        M[Map Data] --> C
+    end
+
+    C --> D{Validate Goal}
+    D -->|Valid| E[Global Path Planning]
+    D -->|Invalid| F[Navigation Failure]
+
+    E --> G[Local Path Planning]
+    G --> H[Path Following]
+
+    subgraph "Perception Loop"
+        I[Sensor Data] --> J[Obstacle Detection]
+        J --> K[Local Costmap Update]
+    end
+
+    K --> H
+    H --> L{Goal Reached?}
+
+    L -->|No| M{Obstacle Detected?}
+    L -->|Yes| N[Navigation Success]
+
+    M -->|Yes| O[Local Replanning]
+    M -->|No| H
+
+    O --> P[Adjust Path]
+    P --> H
+
+    subgraph "Isaac Sim Environment"
+        Q[Isaac Sim Physics]
+        R[Isaac ROS Navigation]
+        S[Ground Truth]
+    end
+
+    Q --> R
+    S --> R
+
+    subgraph "Bipedal Constraints"
+        T[Step Length Limit]
+        U[Balance Requirements]
+        V[Terrain Adaptation]
+    end
+
+    T --> G
+    U --> G
+    V --> G
+
+    %% Styling
+    classDef input fill:#fff3e0
+    classDef process fill:#e8f5e8
+    classDef decision fill:#e3f2fd
+    classDef output fill:#ffebee
+    classDef sim fill:#f3e5f5
+    classDef constraint fill:#e0e0e0
+
+    class A,B,M input
+    class C,E,G,H,P process
+    class D,L decision
+    class F,N output
+    class Q,R,S sim
+    class T,U,V constraint
+```
+
+# Bipedal Navigation Workflow in Isaac Sim
+
+This diagram illustrates the complete navigation workflow for bipedal robots using Isaac Sim and Isaac ROS, highlighting the key decision points and feedback loops.
+
+## Workflow Components
+
+### Navigation Input
+- **Goal Pose**: Target location and orientation for the robot
+- **Robot Pose**: Current position and orientation of the robot
+- **Map Data**: Environmental map for global planning
+
+### Core Navigation Process
+- **Global Path Planning**: Plan optimal path from start to goal
+- **Local Path Planning**: Plan short-term trajectories considering obstacles
+- **Path Following**: Execute planned path while maintaining balance
+
+### Perception Loop
+- **Obstacle Detection**: Identify obstacles in the robot's path
+- **Local Costmap Update**: Update navigation costmap with new obstacle information
+- **Sensor Integration**: Process data from various sensors (cameras, LIDAR, etc.)
+
+### Bipedal Constraints
+- **Step Length Limit**: Maximum distance between consecutive footsteps
+- **Balance Requirements**: Maintain center of mass within support polygon
+- **Terrain Adaptation**: Adjust gait based on surface characteristics
+
+### Decision Points
+- **Goal Validation**: Check if the goal is reachable
+- **Obstacle Detection**: Determine if path needs adjustment
+- **Goal Reached**: Check if robot has reached destination

@@ -1,0 +1,16 @@
+// Placeholder for Unity Humanoid Model
+// This would typically be a binary FBX file containing the 3D model
+// For educational purposes, we're creating a text placeholder
+
+Model: Simplified Humanoid Robot
+Format: FBX (Filmbox) - Autodesk format
+Purpose: Educational Unity representation of PR2 equivalent
+
+The actual model would contain:
+- Root joint for the main body
+- Simplified limb structure (arms, legs)
+- Basic mesh geometry
+- Material definitions for visual rendering
+- Animation rigging for Unity integration
+
+This placeholder indicates where the Unity model file would be located.

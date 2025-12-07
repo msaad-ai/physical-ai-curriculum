@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".specify/scripts/powershell/check-prerequisites.ps1\" -Json -RequireTasks -IncludeTasks)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(mkdir -p specs/module4)",
+      "Bash(touch specs/module4/spec.md specs/module4/plan.md specs/module4/tasks.md)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,31 @@
+graph LR
+    subgraph "Human User"
+        A[Voice Command<br/>'Move to kitchen']
+    end
+
+    subgraph "VLA System"
+        B[Whisper<br/>Speech-to-Text]
+        C[Claude LLM<br/>Language Understanding]
+        D[Cognitive Planning<br/>Action Mapping]
+        E[ROS 2<br/>Action Execution]
+    end
+
+    subgraph "Robot"
+        F[Simulated Humanoid Robot<br/>Physical Actions]
+        G[Feedback<br/>to User]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+
+    style A fill:#c1f0f6
+    style B fill:#f0f4c3
+    style C fill:#bbdefb
+    style D fill:#d1c4e9
+    style E fill:#c8e6c9
+    style F fill:#ffccbc
+    style G fill:#b39ddb

@@ -1,0 +1,20 @@
+graph TD
+    A[Voice Command] --> B[Whisper API]
+    B --> C[Text Transcription]
+    C --> D[Claude LLM]
+    D --> E[Cognitive Planning]
+    E --> F[Action Sequence]
+    F --> G[ROS 2 Actions]
+    G --> H[Simulated Robot]
+    H --> I[Feedback]
+    I --> A
+
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#f1f8e9
+    style F fill:#e0f2f1
+    style G fill:#e3f2fd
+    style H fill:#ede7f6
+    style I fill:#fbe9e7

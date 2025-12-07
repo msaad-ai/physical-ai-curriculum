@@ -1,55 +1,41 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: N/A → 1.0.0
+List of modified principles: N/A (new constitution)
+Added sections: All sections (new constitution)
+Removed sections: None
+Templates requiring updates: ✅ Updated
+Follow-up TODOs: None
+-->
+# Physical AI & Humanoid Robotics Textbook Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Educational Excellence
+Content must balance technical accuracy with accessibility for beginners; All explanations include practical examples and hands-on exercises; Every concept connects theory to real-world humanoid robotics applications.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Simulation-Verified Content
+All code examples must run successfully in ROS 2 + Digital Twin environment; Diagrams and explanations accurately reflect ROS 2, URDF, Gazebo, and Isaac workflows; Practical implementations validated through simulation before inclusion.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Modular Learning Structure
+Content organized in 4 modules with 4 chapters each for progressive learning; Each module builds upon previous concepts while maintaining conceptual independence; Self-contained units allow flexible learning paths and curriculum adaptation.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. AI-Assisted Development
+Leverage Spec-Kit Plus and Claude Code for content creation and validation; Maintain human oversight for technical accuracy and pedagogical effectiveness; Integrate AI tools into iterative content refinement process.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Technical Standards Compliance
+All code follows ROS 2 best practices and standards; Markdown format compatible with Docusaurus for seamless deployment; Consistent writing style maintained throughout entire textbook.
 
-### [PRINCIPLE_6_NAME]
+### VI. Open Source Accessibility
+All content freely available via GitHub Pages deployment; Contributions welcome through standardized pull request process; Documentation clear enough for community maintenance and expansion.
 
+## Technical Standards
+All code examples must be executable in ROS 2 environment with Digital Twin simulation; Diagrams created with tools that produce accurate representations of robotic systems; Markdown formatting follows Docusaurus guidelines for optimal presentation; Content tested across different viewing platforms and devices.
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+Content created through Spec-Driven Development methodology using SpecKit Plus; Each chapter undergoes technical review by robotics domain experts; All code examples tested in simulation environment before merge; Documentation follows consistent style guide across all modules.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution governs all content creation and technical decisions for the Physical AI & Humanoid Robotics Textbook; Amendments require documentation of rationale and approval by project maintainers; All contributors must acknowledge and follow these principles; Regular compliance reviews ensure adherence to established standards.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-06 | **Last Amended**: 2025-12-06

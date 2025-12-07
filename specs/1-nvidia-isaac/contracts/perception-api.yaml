@@ -1,0 +1,270 @@
+# Perception Pipeline API Contract for NVIDIA Isaac Module 3
+# This contract defines the interfaces for perception components
+
+openapi: 3.0.0
+info:
+  title: Isaac Perception Pipeline API
+  version: 1.0.0
+  description: API for perception pipeline components in NVIDIA Isaac Sim
+
+paths:
+  /vslam/process:
+    post:
+      summary: Process sensor data through VSLAM pipeline
+      description: Takes sensor inputs and performs visual-inertial SLAM processing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VSLAMInput'
+      responses:
+        '200':
+          description: VSLAM processing result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VSLAMOutput'
+        '400':
+          description: Invalid sensor data
+        '500':
+          description: Processing error
+
+  /object-detection/process:
+    post:
+      summary: Process image data through object detection pipeline
+      description: Takes image input and performs object detection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObjectDetectionInput'
+      responses:
+        '200':
+          description: Object detection results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectDetectionOutput'
+        '400':
+          description: Invalid image data
+        '500':
+          description: Processing error
+
+  /environment-map/generate:
+    post:
+      summary: Generate environment map from sensor data
+      description: Creates a map of the environment based on sensor inputs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MapGenerationInput'
+      responses:
+        '200':
+          description: Generated environment map
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentMap'
+        '400':
+          description: Invalid sensor data
+        '500':
+          description: Processing error
+
+components:
+  schemas:
+    VSLAMInput:
+      type: object
+      properties:
+        camera_data:
+          type: string
+          description: Base64 encoded camera image data
+        imu_data:
+          type: object
+          properties:
+            acceleration:
+              type: array
+              items:
+                type: number
+              description: Acceleration vector [x, y, z]
+            angular_velocity:
+              type: array
+              items:
+                type: number
+              description: Angular velocity vector [x, y, z]
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the sensor data
+      required:
+        - camera_data
+        - imu_data
+        - timestamp
+
+    VSLAMOutput:
+      type: object
+      properties:
+        position:
+          type: array
+          items:
+            type: number
+          description: Robot position [x, y, z]
+        orientation:
+          type: array
+          items:
+            type: number
+          description: Robot orientation quaternion [x, y, z, w]
+        map:
+          type: object
+          description: Environment map data
+        confidence:
+          type: number
+          description: Confidence level of the localization (0-1)
+        processing_time:
+          type: number
+          description: Time taken for processing in milliseconds
+
+    ObjectDetectionInput:
+      type: object
+      properties:
+        image_data:
+          type: string
+          description: Base64 encoded image data
+        model_type:
+          type: string
+          description: Type of detection model to use
+        confidence_threshold:
+          type: number
+          description: Minimum confidence for detections (0-1)
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the image data
+      required:
+        - image_data
+        - timestamp
+
+    ObjectDetectionOutput:
+      type: object
+      properties:
+        detections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Detection'
+        processing_time:
+          type: number
+          description: Time taken for processing in milliseconds
+        image_with_detections:
+          type: string
+          description: Base64 encoded image with detection overlays
+
+    Detection:
+      type: object
+      properties:
+        class_name:
+          type: string
+          description: Name of the detected object class
+        confidence:
+          type: number
+          description: Confidence level of the detection (0-1)
+        bounding_box:
+          type: object
+          properties:
+            x_min:
+              type: number
+              description: Minimum X coordinate of bounding box
+            y_min:
+              type: number
+              description: Minimum Y coordinate of bounding box
+            x_max:
+              type: number
+              description: Maximum X coordinate of bounding box
+            y_max:
+              type: number
+              description: Maximum Y coordinate of bounding box
+        center_point:
+          type: array
+          items:
+            type: number
+          description: Center point [x, y] of the detection
+      required:
+        - class_name
+        - confidence
+        - bounding_box
+
+    MapGenerationInput:
+      type: object
+      properties:
+        sensor_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SensorData'
+        map_resolution:
+          type: number
+          description: Resolution of the generated map in meters per cell
+        map_size:
+          type: object
+          properties:
+            width:
+              type: number
+              description: Width of the map in meters
+            height:
+              type: number
+              description: Height of the map in meters
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the request
+      required:
+        - sensor_data
+        - timestamp
+
+    SensorData:
+      type: object
+      properties:
+        sensor_type:
+          type: string
+          description: Type of sensor (camera, lidar, etc.)
+        data:
+          type: string
+          description: Base64 encoded sensor data
+        pose:
+          type: object
+          description: Pose of the sensor relative to robot
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the sensor data
+
+    EnvironmentMap:
+      type: object
+      properties:
+        map_data:
+          type: array
+          items:
+            type: number
+          description: Grid map data (0 = free, 1 = occupied)
+        resolution:
+          type: number
+          description: Resolution of the map in meters per cell
+        origin:
+          type: array
+          items:
+            type: number
+          description: Origin of the map [x, y, theta]
+        dimensions:
+          type: object
+          properties:
+            width:
+              type: number
+              description: Width of the map in cells
+            height:
+              type: number
+              description: Height of the map in cells
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the map generation

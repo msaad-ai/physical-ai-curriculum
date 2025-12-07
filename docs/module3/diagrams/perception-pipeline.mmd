@@ -1,0 +1,92 @@
+```mermaid
+graph TB
+    subgraph "Sensors"
+        C[RGB Camera]
+        D[Depth Sensor]
+        I[IMU]
+        L[LIDAR]
+    end
+
+    subgraph "Isaac Sim Environment"
+        SS[Sensor Simulation]
+        GT[Ground Truth Generation]
+    end
+
+    subgraph "Isaac ROS Perception Pipeline"
+        IE[Image Encoding]
+        TR[TensorRT Inference]
+        VF[VSLAM Fusion]
+        OD[Object Detection]
+        PF[Perception Fusion]
+    end
+
+    subgraph "Output Processing"
+        VP[Visualization]
+        DT[Data Training]
+        NF[Navigation Interface]
+    end
+
+    %% Sensor connections to Isaac Sim
+    C --> SS
+    D --> SS
+    I --> SS
+    L --> SS
+
+    %% Isaac Sim internal processing
+    SS --> GT
+
+    %% Isaac Sim to Isaac ROS
+    SS --> IE
+    SS --> VF
+
+    %% Isaac ROS internal processing
+    IE --> TR
+    TR --> OD
+    SS --> VF
+    VF --> PF
+    OD --> PF
+
+    %% Output processing
+    PF --> VP
+    PF --> DT
+    PF --> NF
+
+    %% Styling
+    classDef sensors fill:#ffebee
+    classDef isaacSim fill:#e8eaf6
+    classDef isaacROS fill:#e0f2f1
+    classDef output fill:#fff8e1
+
+    class C,D,I,L sensors
+    class SS,GT isaacSim
+    class IE,TR,VF,OD,PF isaacROS
+    class VP,DT,NF output
+```
+
+# Isaac ROS Perception Pipeline Architecture
+
+This diagram illustrates the complete perception pipeline in Isaac ROS, showing how sensor data flows from simulation through various processing stages to produce perception outputs.
+
+## Components Description
+
+### Sensors
+- **RGB Camera**: Provides color images for visual processing
+- **Depth Sensor**: Supplies depth information for 3D understanding
+- **IMU**: Provides inertial measurements for motion estimation
+- **LIDAR**: Generates precise 3D point clouds for mapping
+
+### Isaac Sim Environment
+- **Sensor Simulation**: Realistic simulation of sensor behavior
+- **Ground Truth Generation**: Perfect reference data for validation
+
+### Isaac ROS Perception Pipeline
+- **Image Encoding**: Preprocesses images for neural network inference
+- **TensorRT Inference**: GPU-accelerated neural network processing
+- **VSLAM Fusion**: Visual-inertial SLAM for localization and mapping
+- **Object Detection**: Identification and localization of objects
+- **Perception Fusion**: Integration of multiple perception outputs
+
+### Output Processing
+- **Visualization**: Tools for visualizing perception results
+- **Data Training**: Pipeline for generating training data
+- **Navigation Interface**: Connection to navigation systems

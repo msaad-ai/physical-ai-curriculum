@@ -1,0 +1,259 @@
+# Navigation API Contract for NVIDIA Isaac Module 3
+# This contract defines the interfaces for navigation components
+
+openapi: 3.0.0
+info:
+  title: Isaac Navigation API
+  version: 1.0.0
+  description: API for navigation components in NVIDIA Isaac Sim with Nav2
+
+paths:
+  /navigation/plan-path:
+    post:
+      summary: Plan a path from start to goal
+      description: Uses Nav2 to plan a safe path from current position to goal position
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathPlanningRequest'
+      responses:
+        '200':
+          description: Planned path
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathPlanningResponse'
+        '400':
+          description: Invalid path planning request
+        '404':
+          description: No valid path found
+        '500':
+          description: Path planning error
+
+  /navigation/execute:
+    post:
+      summary: Execute a planned path
+      description: Commands the robot to follow a planned path
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathExecutionRequest'
+      responses:
+        '200':
+          description: Path execution started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathExecutionResponse'
+        '400':
+          description: Invalid execution request
+        '500':
+          description: Execution error
+
+  /navigation/cancel:
+    post:
+      summary: Cancel current navigation
+      description: Stops the current navigation task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NavigationCancelRequest'
+      responses:
+        '200':
+          description: Navigation canceled successfully
+        '500':
+          description: Cancel error
+
+  /navigation/status:
+    get:
+      summary: Get current navigation status
+      description: Returns the current status of navigation system
+      responses:
+        '200':
+          description: Current navigation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NavigationStatus'
+
+components:
+  schemas:
+    PathPlanningRequest:
+      type: object
+      properties:
+        start_pose:
+          $ref: '#/components/schemas/Pose'
+        goal_pose:
+          $ref: '#/components/schemas/Pose'
+        robot_model:
+          type: string
+          description: Type of robot model for kinematic constraints
+        map_id:
+          type: string
+          description: ID of the map to use for planning
+        planner_type:
+          type: string
+          description: Type of path planner to use
+      required:
+        - start_pose
+        - goal_pose
+
+    PathPlanningResponse:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pose'
+          description: Planned path as a sequence of poses
+        path_length:
+          type: number
+          description: Length of the planned path in meters
+        planning_time:
+          type: number
+          description: Time taken for planning in milliseconds
+        success:
+          type: boolean
+          description: Whether path planning was successful
+
+    PathExecutionRequest:
+      type: object
+      properties:
+        path:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pose'
+          description: Path to execute as a sequence of poses
+        execution_params:
+          $ref: '#/components/schemas/ExecutionParams'
+      required:
+        - path
+
+    PathExecutionResponse:
+      type: object
+      properties:
+        execution_id:
+          type: string
+          description: Unique ID for the execution task
+        status:
+          type: string
+          description: Current status of the execution
+        estimated_completion:
+          type: string
+          format: date-time
+          description: Estimated time of completion
+
+    NavigationCancelRequest:
+      type: object
+      properties:
+        execution_id:
+          type: string
+          description: ID of the execution to cancel
+      required:
+        - execution_id
+
+    NavigationStatus:
+      type: object
+      properties:
+        current_pose:
+          $ref: '#/components/schemas/Pose'
+        target_pose:
+          $ref: '#/components/schemas/Pose'
+        path_progress:
+          type: number
+          description: Progress along the path (0-1)
+        status:
+          type: string
+          description: Current navigation status (idle, planning, executing, error)
+        velocity:
+          $ref: '#/components/schemas/Velocity'
+        battery_level:
+          type: number
+          description: Current battery level (0-1)
+
+    Pose:
+      type: object
+      properties:
+        position:
+          type: object
+          properties:
+            x:
+              type: number
+              description: X coordinate in meters
+            y:
+              type: number
+              description: Y coordinate in meters
+            z:
+              type: number
+              description: Z coordinate in meters
+        orientation:
+          type: object
+          properties:
+            x:
+              type: number
+              description: X component of quaternion
+            y:
+              type: number
+              description: Y component of quaternion
+            z:
+              type: number
+              description: Z component of quaternion
+            w:
+              type: number
+              description: W component of quaternion
+      required:
+        - position
+        - orientation
+
+    Velocity:
+      type: object
+      properties:
+        linear:
+          type: object
+          properties:
+            x:
+              type: number
+              description: Linear velocity in X direction (m/s)
+            y:
+              type: number
+              description: Linear velocity in Y direction (m/s)
+            z:
+              type: number
+              description: Linear velocity in Z direction (m/s)
+        angular:
+          type: object
+          properties:
+            x:
+              type: number
+              description: Angular velocity around X axis (rad/s)
+            y:
+              type: number
+              description: Angular velocity around Y axis (rad/s)
+            z:
+              type: number
+              description: Angular velocity around Z axis (rad/s)
+
+    ExecutionParams:
+      type: object
+      properties:
+        max_velocity:
+          type: number
+          description: Maximum linear velocity (m/s)
+        min_velocity:
+          type: number
+          description: Minimum linear velocity (m/s)
+        acceleration_limit:
+          type: number
+          description: Acceleration limit (m/s²)
+        deceleration_limit:
+          type: number
+          description: Deceleration limit (m/s²)
+        obstacle_buffer:
+          type: number
+          description: Buffer distance from obstacles (m)

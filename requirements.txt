@@ -1,0 +1,10 @@
+# Main project requirements
+-r docs/module4/requirements.txt
+
+# Additional requirements for the VLA module
+flask>=2.0.0
+torch>=1.9.0
+torchvision>=0.10.0
+transformers>=4.0.0
+opencv-python>=4.5.0
+pyaudio>=0.2.11
