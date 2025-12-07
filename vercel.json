@@ -18,5 +18,7 @@
   "github": {
     "enabled": true,
     "autoJobEnabled": true
-  }
+  },
+  "cleanUrls": true,
+  "trailingSlash": false
 }
